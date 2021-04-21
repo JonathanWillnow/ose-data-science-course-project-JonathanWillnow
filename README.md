@@ -1,6 +1,6 @@
 # OSE data science project template
 
-This is a template for course projects. We use [GitHub Classroom](https://classroom.github.com) to administrate our student projects and so you need to sign up for a [GitHub Account](http://github.com).
+This is a template for course projects. It will be used to build Jonathan Willnow´s project. We use [GitHub Classroom](https://classroom.github.com) to administrate our student projects and so you need to sign up for a [GitHub Account](http://github.com).
 
 ## Project overview
 
