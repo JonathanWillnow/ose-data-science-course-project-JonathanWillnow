@@ -1,10 +1,12 @@
-# OSE data science project template
+# OSE data science project summerterm 2021
 
-This is a template for course projects. It will be used to build Jonathan Willnow´s project. We use [GitHub Classroom](https://classroom.github.com) to administrate our student projects and so you need to sign up for a [GitHub Account](http://github.com).
+This is the final project of the OSE data science course summerterm 2021 by Jonathan Willnow. 
 
 ## Project overview
 
-Please ensure that a brief description of your project is included in the [README.md](https://github.com/HumanCapitalAnalysis/template-course-project/blob/master/README.md), which provides a proper citation of your baseline article. Also, please set up the following badges that allow to easily access your project notebook.
+This project replicates and comments on the findings of Dreher et. al (2021): Aid, China, and Growth: Evidence from a New Global Development Finance Dataset. American Economic Journal: Economic Policy, vol. 13(2), may 2021 (pp. 135-74).
+
+* Please ensure that a brief description of your project is included in the [README.md](https://github.com/HumanCapitalAnalysis/template-course-project/blob/master/README.md), which provides a proper citation of your baseline article. Also, please set up the following badges that allow to easily access your project notebook.
 
 <a href="https://nbviewer.jupyter.org/github/OpenSourceEconomics/ose-template-course-project/blob/master/example_project.ipynb"
    target="_parent">
@@ -21,9 +23,10 @@ Please ensure that a brief description of your project is included in the [READM
 
 ## Reproducibility
 
-To ensure full reproducibility of your project, please try to set up a [GitHub Actions CI](https://docs.github.com/en/actions) as your continuous integration service. An introductory tutorial for [conda](https://conda.io) and [GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/introduction-to-github-actions) is provided [here](https://github.com/OpenSourceEconomics/ose-template-course-project/blob/master/tutorial_conda_actions.ipynb). While not at all mandatory, setting up a proper continuous integration workflow is an extra credit that can improve the final grade.
 
 ![Continuous Integration](https://github.com/OpenSourceEconomics/ose-template-course-project/workflows/Continuous%20Integration/badge.svg)
+
+For full reproducibility of this project, an continuous integration workflow was set up using [GitHub Actions CI](https://docs.github.com/en/actions). I also provided an environment.yml file of my environment to ensure full reproducibility of my notebook.
 
 In some cases you might not be able to run parts of your code on  [GitHub Actions CI](https://docs.github.com/en/actions) as, for example, the computation of results takes multiple hours. In those cases you can add the result in a file to your repository and load it in the notebook. See below for an example code.
 
@@ -55,11 +58,3 @@ A typical project notebook has the following structure:
 * independent contribution, e.g. additional external evidence, robustness checks, visualization
 
 There might be good reason to deviate from this structure. If so, please simply document your reasoning and go ahead. Please use the opportunity to review other student projects for some inspirations as well.
-
-## Project Example
-
-The notebook [example_project.ipynb](https://github.com/OpenSourceEconomics/ose-template-course-project/blob/master/example_project.ipynb) contains an example project by [Annica Gehlen](https://github.com/amageh) from the 2019 iteration of the [OSE data science](https://github.com/OpenSourceEconomics/ose-course-data-science) class at Bonn University. It replicates the results from the following paper:
-
-* Lindo, J. M., Sanders, N. J., & Oreopoulos, P. (2010). [Ability, Gender, and Performance Standards: Evidence from Academic Probation](https://www.aeaweb.org/articles?id=10.1257/app.2.2.95). *American Economic Journal: Applied Economics*, 2(2), 95-117.
-
-Lindo et al. (2010) examine the effects of academic probation on student outcomes using a regression discontinuity design. The analysis is based on data from a large Canadian university and evaluates whether academic probation is successful in improving the performance of low scoring students. Consistent with a model of performance standards, the authors find that being placed on probation in the first year of university induces some students to drop out of school while it improves the grades of students who continue their studies. In a more general sense, academic probation can offer insights into how agents respond to negative incentives and the threat of punishment in a real-world context.
