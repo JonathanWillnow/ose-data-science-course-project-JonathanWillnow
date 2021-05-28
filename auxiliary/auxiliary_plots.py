@@ -60,7 +60,7 @@ def worldplot_2(data, cc, pc):
         Args:
         -------
             data = pd.dataframe wich contains column of interest
-            checkcol = columnnumber of iso_3 code of input df
+            checkcol = columnnumber of country of input df
             plotcol = the columnnumber of the column that we want to plot
 
         Returns:
@@ -109,7 +109,7 @@ def flow_class_plot(data):
     ax.set_title("Share of flow_class");
 
 
-    plotting2 = data.groupby("flow_class").usd_current.sum()
+    plotting2 = data.groupby("flow_class").usd_defl.sum()
     plt.pyplot.subplot(122)
     ax = sns.barplot(x=plotting2.index, y=(plotting2.values/1e6))
     ax.set_ylabel("Amount in million USD")
@@ -145,7 +145,7 @@ def sectoral_plot(data):
 
     sns.set_theme(style="whitegrid")
     sectoral_analysis_df = data.crs_sector_name.value_counts(1).sort_index().to_frame("project_share")
-    sectoral_analysis_df["in_USD"] = data.groupby("crs_sector_name").usd_current.sum()
+    sectoral_analysis_df["in_USD"] = data.groupby("crs_sector_name").usd_defl.sum()
     sectoral_analysis_df = sectoral_analysis_df.sort_values(by="in_USD", ascending=False)
 
     # plotting
@@ -160,14 +160,14 @@ def sectoral_plot(data):
     
     # Share of health, education and governance
     share_HEG = ((sectoral_analysis_df.loc["Health", "in_USD"] + sectoral_analysis_df.loc["Education", "in_USD"]
-                 + sectoral_analysis_df.loc["Government and Civil Society", "in_USD"]) / sectoral_analysis_df["in_USD"].sum()) / 1e6
+                 + sectoral_analysis_df.loc["Government and Civil Society", "in_USD"]) / sectoral_analysis_df["in_USD"].sum())
     
     # Share of energy, transport, industry
     share_ETI = ((sectoral_analysis_df.loc["Energy Generation and Supply", "in_USD"] 
                   + sectoral_analysis_df.loc["Industry, Mining, Construction", "in_USD"]
-                  + sectoral_analysis_df.loc["Transport and Storage", "in_USD"]) / sectoral_analysis_df["in_USD"].sum()) / 1e6
+                  + sectoral_analysis_df.loc["Transport and Storage", "in_USD"]) / sectoral_analysis_df["in_USD"].sum()) 
     
-    print(share_HEG)
+    print(f"All projects of the health-, education and governance sector account for {share_HEG*100:.2f}%,\nwhereas the energy-, transportation and industry/mining sector accounts for {share_ETI*100:.2f}%")
     
 
 
