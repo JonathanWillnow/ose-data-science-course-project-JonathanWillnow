@@ -14,7 +14,6 @@ dependencies:
 - Shapely
 - geopandas
 - descartes
-- linearmodels
 - pip
 - pip:
 
