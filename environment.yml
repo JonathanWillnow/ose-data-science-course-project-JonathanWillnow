@@ -1,6 +1,5 @@
 name: student_project
 
-
 dependencies:
 - numpy
 - pandas
@@ -9,7 +8,6 @@ dependencies:
 - seaborn
 - scipy
 - statsmodels
-- linearmodels
 - GDAL
 - pyproj
 - fiona
