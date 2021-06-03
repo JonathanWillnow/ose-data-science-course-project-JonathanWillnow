@@ -8,13 +8,13 @@ dependencies:
 - seaborn
 - scipy
 - statsmodels
+- linearmodels
 - GDAL
 - pyproj
 - fiona
 - Shapely
 - geopandas
 - descartes
-- linearmodels
 - pip
 - pip:
 
