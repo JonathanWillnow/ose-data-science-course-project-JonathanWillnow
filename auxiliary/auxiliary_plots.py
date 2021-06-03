@@ -53,15 +53,18 @@ def worldplot(data):
     
 def worldplot_2(data, cc, pc):
     
-    """ Function to plot a custom colored worldmap with help of a standart GeoPandas dataframe.
-    Therefore we have to input a dataframe that contains the iso3 code of countries (checkcol). Furthermore you need
-    to specify the column of the input data that you want to display on the worldmap
+    """ Function to plot a custom colored worldmap with help of a standart GeoPandas dataframe. I used the iso3 number of the countries
+    in order to clearly identify the countries and assign the choosen value (financial amount or project count) to the 
+    specific country
+    For plotting, we have to input a dataframe that contains the iso3 code of countries (cc). Furthermore you need
+    to specify the column of the input data that you want to display on the worldmap (pc)
+
 
         Args:
         -------
             data = pd.dataframe wich contains column of interest
-            checkcol = columnnumber of country of input df
-            plotcol = the columnnumber of the column that we want to plot
+            cc = columnnumber of country of input df
+            pc = the columnnumber of the column that we want to plot
 
         Returns:
         ---------
@@ -82,19 +85,32 @@ def worldplot_2(data, cc, pc):
     for i in world_df.index:
         for j in data.index:
             if world_df.loc[i,"iso_a3"] == data.loc[j, cc]:
-                world_df.loc[i,pc] = data.loc[j, pc];
+                try:
+                    world_df.loc[i,pc] = data.loc[j, pc];
+                except:    
+                    print("\nError! Invalid Input. Example for input: OFa_all_con")
+                    return
+                   
 
     fig, ax = plt.pyplot.subplots(1,1, figsize=(22,12))
     ax.axis('off')
     fig.suptitle('Chinese Development Finance', fontsize=25)
     
-    world_df.plot(column=pc, ax = ax, legend=True, legend_kwds={"label":"\n Chinese Development Finance in $10 bln",
+    if pc == "OFa_all_con":
+        world_df.plot(column=pc, ax = ax, legend=True, legend_kwds={"label":"\n Chinese Development Finance in $10 bln",
                                                                          "orientation": "horizontal"}, 
                                                               missing_kwds={"color": "lightgrey",
                                                                             "edgecolor": "red",
                                                                             "hatch": "///",
                                                                             "label": "Missing values"});
-
+    else:
+        world_df.plot(column=pc, ax = ax, legend=True, legend_kwds={"label":"\n Chinese Development Finance project count",###ADDDDJUST!!!!!
+                                                                         "orientation": "horizontal"}, 
+                                                              missing_kwds={"color": "lightgrey",
+                                                                            "edgecolor": "red",
+                                                                            "hatch": "///",
+                                                                            "label": "Missing values"});
+ 
 ###
 
 def flow_class_plot(data):    
