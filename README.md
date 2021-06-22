@@ -1,6 +1,6 @@
 # OSE data science project summerterm 2021
 
-This is the final project of the OSE data science course summerterm 2021 by Jonathan Willnow. 
+This is the final project (in progress) of the OSE data science course summerterm 2021 by Jonathan Willnow. 
 
 ## Project overview
 
@@ -28,22 +28,11 @@ This project replicates and comments on the findings of Dreher et. al (2021): Ai
 
 For full reproducibility of this project, an continuous integration workflow was set up using [GitHub Actions CI](https://docs.github.com/en/actions). I also provided an environment.yml file of my environment to ensure full reproducibility of my notebook.
 
-In some cases you might not be able to run parts of your code on  [GitHub Actions CI](https://docs.github.com/en/actions) as, for example, the computation of results takes multiple hours. In those cases you can add the result in a file to your repository and load it in the notebook. See below for an example code.
 
-```python
-# If we are running on GitHub Actions CI we will simply load a file with existing results.
-if os.environ.get("CI") == "true":
-  rslt = pkl.load(open('stored_results.pkl', 'br'))
-else:
-  rslt = compute_results()
-
-# Now we are ready for further processing.
-...
-```
-
-However, if you decide to do so, please be sure to provide an explanation in your notebook explaining why exactly this is required in your case.
 
 ## Structure of notebook
+
+
 
 A typical project notebook has the following structure:
 
