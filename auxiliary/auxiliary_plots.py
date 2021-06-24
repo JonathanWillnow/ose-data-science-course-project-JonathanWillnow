@@ -184,6 +184,62 @@ def sectoral_plot(data):
                   + sectoral_analysis_df.loc["Transport and Storage", "in_USD"]) / sectoral_analysis_df["in_USD"].sum()) 
     
     print(f"All projects of the health-, education and governance sector account for {share_HEG*100:.2f}%,\nwhereas the energy-, transportation and industry/mining sector accounts for {share_ETI*100:.2f}%")
+
+###
+def quali_descriptive_plots(data, liste):
     
+    sns.set_theme(style="whitegrid")
+    fig, axes = plt.pyplot.subplots(3, 2, figsize=(14, 16))
+    # Use the axes for plotting
+    axes[0,0].set_title(liste[0])
+    sns.violinplot(x=liste[0], y="OFn_all", data=data, ax=axes[0,0], inner = "quartiles");
+
+    axes[0,1].set_title(liste[0])
+    ax = sns.violinplot(x=liste[0], y="OFa_all_con", data=data, ax=axes[0,1], inner = "quartiles")
+
+    axes[1,0].set_title(liste[1])
+    sns.violinplot(x=liste[1], y="OFn_all", data=data,ax=axes[1,0], inner = "quartiles");
+
+    axes[1,1].set_title(liste[1])
+    ax = sns.violinplot(x=liste[1], y="OFa_all_con", data=data,ax=axes[1,1], inner = "quartiles");
+
+    axes[2,0].set_title(liste[2])
+    sns.violinplot(x=liste[2], y="OFn_all", data=data,ax=axes[2,0], inner = "quartiles");
+
+    axes[2,1].set_title(liste[2])
+    ax = sns.violinplot(x=liste[2], y="OFa_all_con", data=data,ax=axes[2,1], inner = "quartiles");
+
+    plt.pyplot.tight_layout(pad=2.5);
 
 
+###
+def quanti_descriptive_plots(data, liste):
+    
+    sns.set_theme(style="whitegrid")
+    fig, axes = plt.pyplot.subplots(4, 2, figsize=(14, 16))
+    # Use the axes for plotting
+    axes[0,0].set_title(liste[0])
+    sns.scatterplot(x=liste[0], y="OFn_all", data=data, ax=axes[0,0], hue = "A_D99petroleum", style ="A_Ltaiwanr")
+
+    axes[0,1].set_title(liste[0])
+    ax = sns.scatterplot(x=liste[0], y="OFa_all_con", data=data, ax=axes[0,1], hue = "A_D99petroleum", style ="A_Ltaiwanr")
+
+    axes[1,0].set_title(liste[1])
+    sns.scatterplot(x=liste[1], y="OFn_all", data=data,ax=axes[1,0], hue = "A_D99petroleum", style ="A_Ltaiwanr");
+
+    axes[1,1].set_title(liste[1])
+    ax = sns.scatterplot(x=liste[1], y="OFa_all_con", data=data,ax=axes[1,1], hue = "A_D99petroleum", style ="A_Ltaiwanr");
+
+    axes[2,0].set_title(liste[2])
+    sns.scatterplot(x=liste[2], y="OFn_all", data=data,ax=axes[2,0], hue = "A_D99petroleum", style ="A_Ltaiwanr");
+
+    axes[2,1].set_title(liste[2])
+    ax = sns.scatterplot(x=liste[2], y="OFa_all_con", data=data,ax=axes[2,1], hue = "A_D99petroleum", style ="A_Ltaiwanr");
+    
+    axes[3,0].set_title(liste[3])
+    sns.scatterplot(x=liste[2], y="OFn_all", data=data,ax=axes[3,0], hue = "A_D99petroleum", style ="A_Ltaiwanr");
+
+    axes[3,1].set_title(liste[3])
+    ax = sns.scatterplot(x=liste[2], y="OFa_all_con", data=data,ax=axes[3,1], hue = "A_D99petroleum", style ="A_Ltaiwanr");
+
+    plt.pyplot.tight_layout(pad=2.5);
