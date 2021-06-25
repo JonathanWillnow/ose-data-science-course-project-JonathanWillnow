@@ -7,7 +7,7 @@ import seaborn as sns
 import statsmodels as sm
 import statsmodels.formula.api as smf
 import statsmodels.api as sm_api
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import geopandas 
 from IPython.display import HTML
 
@@ -39,7 +39,7 @@ def worldplot(data):
                 world_df.loc[i,"OFa_all_con"] = data.loc[j, "OFa_all_con"];
 
 
-    fig, ax = plt.pyplot.subplots(1,1, figsize=(22,14))
+    fig, ax = plt.subplots(1,1, figsize=(22,14))
     ax.axis('off')
     fig.suptitle('Chinese Development Finance', fontsize=25)
     
@@ -92,7 +92,7 @@ def worldplot_2(data, cc, pc):
                     return
                    
 
-    fig, ax = plt.pyplot.subplots(1,1, figsize=(22,12))
+    fig, ax = plt.subplots(1,1, figsize=(22,12))
     ax.axis('off')
     fig.suptitle('Chinese Development Finance', fontsize=25)
     
@@ -115,23 +115,23 @@ def worldplot_2(data, cc, pc):
 
 def flow_class_plot(data):    
     sns.set_theme(style="whitegrid")
-    f, axs = plt.pyplot.subplots(1,2,figsize=(15,15))
-    plt.pyplot.subplots_adjust(wspace=0.5)
+    f, axs = plt.subplots(1,2,figsize=(15,15))
+    plt.subplots_adjust(wspace=0.5)
 
     plotting = data.flow_class.value_counts(1)
-    plt.pyplot.subplot(121)
+    plt.subplot(121)
     ax = sns.barplot(x=plotting.index, y=plotting.values)
     ax.set_ylabel("share")
     ax.set_title("Share of flow_class");
 
 
     plotting2 = data.groupby("flow_class").usd_defl.sum()
-    plt.pyplot.subplot(122)
+    plt.subplot(122)
     ax = sns.barplot(x=plotting2.index, y=(plotting2.values/1e6))
     ax.set_ylabel("Amount in million USD")
     ax.set_title("Share of flow_class");
     
-    plt.pyplot.plot()
+    plt.plot()
 
     df = pd.DataFrame([["ODA", plotting[0], plotting2[0]/1e6],
                       ["OOF", plotting[1], plotting[1]/1e6],
@@ -165,12 +165,12 @@ def sectoral_plot(data):
     sectoral_analysis_df = sectoral_analysis_df.sort_values(by="in_USD", ascending=False)
 
     # plotting
-    f, axs = plt.pyplot.subplots(2,1,figsize=(15,15))
-    plt.pyplot.subplot(211)
+    f, axs = plt.subplots(2,1,figsize=(15,15))
+    plt.subplot(211)
     ax = sns.barplot(y=sectoral_analysis_df.index, x=sectoral_analysis_df.in_USD, color = "darkblue")
     ax.set_title("Value per sector");
 
-    plt.pyplot.subplot(212)
+    plt.subplot(212)
     ax = sns.barplot(y=sectoral_analysis_df.index, x=sectoral_analysis_df.project_share, color = "lightblue")
     ax.set_title("Sare of projects per sector");
     
@@ -189,7 +189,7 @@ def sectoral_plot(data):
 def quali_descriptive_plots(data, liste):
     
     sns.set_theme(style="whitegrid")
-    fig, axes = plt.pyplot.subplots(3, 2, figsize=(14, 16))
+    fig, axes = plt.subplots(3, 2, figsize=(14, 16))
     # Use the axes for plotting
     axes[0,0].set_title(liste[0])
     sns.violinplot(x=liste[0], y="OFn_all", data=data, ax=axes[0,0], inner = "quartiles");
@@ -209,14 +209,14 @@ def quali_descriptive_plots(data, liste):
     axes[2,1].set_title(liste[2])
     ax = sns.violinplot(x=liste[2], y="OFa_all_con", data=data,ax=axes[2,1], inner = "quartiles");
 
-    plt.pyplot.tight_layout(pad=2.5);
+    plt.tight_layout(pad=2.5);
 
 
 ###
 def quanti_descriptive_plots(data, liste):
     
     sns.set_theme(style="whitegrid")
-    fig, axes = plt.pyplot.subplots(4, 2, figsize=(14, 16))
+    fig, axes = plt.subplots(4, 2, figsize=(14, 16))
     # Use the axes for plotting
     axes[0,0].set_title(liste[0])
     sns.scatterplot(x=liste[0], y="OFn_all", data=data, ax=axes[0,0], hue = "A_D99petroleum", style ="A_Ltaiwanr")
@@ -242,4 +242,4 @@ def quanti_descriptive_plots(data, liste):
     axes[3,1].set_title(liste[3])
     ax = sns.scatterplot(x=liste[2], y="OFa_all_con", data=data,ax=axes[3,1], hue = "A_D99petroleum", style ="A_Ltaiwanr");
 
-    plt.pyplot.tight_layout(pad=2.5);
+    plt.tight_layout(pad=2.5);
