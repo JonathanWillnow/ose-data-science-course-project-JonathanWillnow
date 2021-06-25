@@ -211,7 +211,7 @@ def confidence_intervall_plot(data, alpha):
     
     # set up dic and initialise variables
     data_dict = {}
-    data_dict['variable'] = [data.l2OFn_all,  data.l2OFa_all, data.l2OFn_oda,  data.l2OFa_oda, data.l2OFn_oofv,  data.l2OFa_oofv]
+    data_dict['variable'] = [data.l2OFn_all,  data.l2OFa_all, data.l2OFn_oofv,  data.l2OFa_oofv, data.l2OFn_oda,  data.l2OFa_oda]
     
     # get all the models
     ao1, af1, as1, ao2, af2, as3 = OFn_OFa_all_Table2(data, False)
@@ -221,16 +221,16 @@ def confidence_intervall_plot(data, alpha):
     # calculate 90% CI
     data_dict['low'] = [ao1.conf_int(level = 1-alpha).loc["l2OFn_all", "lower"], 
                         ao2.conf_int(level = 1-alpha).loc["l2OFa_all", "lower"],
-                       oda_o1.conf_int(level = 1-alpha).loc["l2OFn_oda", "lower"], 
-                        oda_o2.conf_int(level = 1-alpha).loc["l2OFa_oda", "lower"],
                        oofv_o1.conf_int(level = 1-alpha).loc["l2OFn_oofv", "lower"], 
-                        oofv_o2.conf_int(level = 1-alpha).loc["l2OFa_oofv", "lower"]]
+                        oofv_o2.conf_int(level = 1-alpha).loc["l2OFa_oofv", "lower"], 
+                       oda_o1.conf_int(level = 1-alpha).loc["l2OFn_oda", "lower"], 
+                        oda_o2.conf_int(level = 1-alpha).loc["l2OFa_oda", "lower"]]
     data_dict['up'] = [ao1.conf_int(level = 1-alpha).loc["l2OFn_all", "upper"], 
                        ao2.conf_int(level = 1-alpha).loc["l2OFa_all", "upper"],
-                      oda_o1.conf_int(level = 1-alpha).loc["l2OFn_oda", "upper"], 
-                       oda_o2.conf_int(level = 1-alpha).loc["l2OFa_oda", "upper"],
                        oofv_o1.conf_int(level = 1-alpha).loc["l2OFn_oofv", "upper"], 
-                       oofv_o2.conf_int(level = 1-alpha).loc["l2OFa_oofv", "upper"]]
+                       oofv_o2.conf_int(level = 1-alpha).loc["l2OFa_oofv", "upper"],
+                      oda_o1.conf_int(level = 1-alpha).loc["l2OFn_oda", "upper"], 
+                       oda_o2.conf_int(level = 1-alpha).loc["l2OFa_oda", "upper"]]
     
     dataset = pd.DataFrame(data_dict)
     
@@ -238,12 +238,12 @@ def confidence_intervall_plot(data, alpha):
     #fig.suptitle('Comparison of 90% CI´s', fontsize=25)
     #plt.pyplot.figure(figsize=(20,14))
     col = ['ro-','ro-', "go-","go-","bo-","bo-"]
-    labels = ["OFn_all", "OFa_all", "OFn_oda", "OFa_oda", "OFn_oofv", "OFa_oofv"]
+    labels = ["OFn_all", "OFa_all", "OFn_oofv", "OFa_oofv", "OFn_oda", "OFa_oda"]
     x = 0
     for low,up,y in zip(dataset['low'],dataset['up'],range(len(dataset))):
         plt.plot((low,up),(y,y),col[x], label = labels[x])  
         x +=1
-    plt.yticks(list(range(len(dataset))), ["OFn_all", "OFa_all", "OFn_oda", "OFa_oda", "OFn_oofv", "OFa_oofv"])
+    plt.yticks(list(range(len(dataset))), ["OFn_all", "OFa_all", "OFn_oofv", "OFa_oofv", "OFn_oda", "OFa_oda"])
     #plt.pyplot.legend()
     plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
     
