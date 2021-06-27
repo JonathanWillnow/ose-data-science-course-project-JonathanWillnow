@@ -17,7 +17,6 @@ dependencies:
 - Shapely
 - geopandas
 - descartes
-- warnings
 - pip
 - pip:
 
