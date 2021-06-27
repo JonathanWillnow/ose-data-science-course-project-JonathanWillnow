@@ -1,4 +1,4 @@
-# OSE data science project summerterm 2021
+# OSE data science project summerterm 2021 by Jonathan Willnow
 
 This is the final project (in progress) of the OSE data science course summerterm 2021 by Jonathan Willnow. 
 
@@ -6,7 +6,15 @@ This is the final project (in progress) of the OSE data science course summerter
 
 This project replicates and comments on the findings of Dreher et. al (2021): Aid, China, and Growth: Evidence from a New Global Development Finance Dataset. American Economic Journal: Economic Policy, vol. 13(2), may 2021 (pp. 135-74).
 
-* Please ensure that a brief description of your project is included in the [README.md](https://github.com/HumanCapitalAnalysis/template-course-project/blob/master/README.md), which provides a proper citation of your baseline article. Also, please set up the following badges that allow to easily access your project notebook.
+The Belt and Road Initiative (BRI), better known as The "new silk road initiative" is just one of many instances of China´s overseas activities of financing development, especially known to the europeans. Other projects, mostly infrastructure projects (by transaction value), link China within Asia and with the African continent. This role of China as significant donor raises strong opinions, but the debate was based on only little facts since most of the details are not officially reported. The paper at hand uses the Tracking Underreported Financial Flows (TUFF) methodology to introduce a new dataset that provides the needed evidentiary foundations that was needed for this issue.
+
+I will focus on the following questions: 
+
+* What determines the allocation of Chinese development finance?
+* Does Chinas financial development finance led to economic growth?
+* Does Chinas finance undermine the effectivness of western development finance?
+
+To answer this question on whether and how Chinese development finance affects economic growth, instrumental varibales are employed that make use of the year-to-year changes in the supply of Chinese development finance (which will be introduced) in tandem with cross-sectional variation which is determined by the probability that countries receive such funding.
 
 <a href="https://nbviewer.jupyter.org/github/OpenSourceEconomics/ose-template-course-project/blob/master/example_project.ipynb"
    target="_parent">
@@ -30,20 +38,7 @@ For full reproducibility of this project, an continuous integration workflow was
 
 
 
-## Structure of notebook
+## Table of contents
 
+in progress...
 
-
-A typical project notebook has the following structure:
-
-* presentation of baseline article with proper citation and brief summary
-
-* using causal graphs to illustrate the authors' identification strategy
-
-* replication of selected key results
-
-* critical assessment of quality
-
-* independent contribution, e.g. additional external evidence, robustness checks, visualization
-
-There might be good reason to deviate from this structure. If so, please simply document your reasoning and go ahead. Please use the opportunity to review other student projects for some inspirations as well.
