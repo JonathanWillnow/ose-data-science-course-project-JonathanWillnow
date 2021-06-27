@@ -115,7 +115,7 @@ def worldplot_2(data, cc, pc):
 
 def flow_class_plot(data):    
     sns.set_theme(style="whitegrid")
-    f, axs = plt.subplots(1,2,figsize=(15,15))
+    
     plt.subplots_adjust(wspace=0.5)
 
     plotting = data.flow_class.value_counts(1)
