@@ -116,20 +116,23 @@ def worldplot_2(data, cc, pc):
 def flow_class_plot(data):    
     sns.set_theme(style="whitegrid")
     
+    fig, ax = plt.subplots(1,2, figsize = (14,6))
     plt.subplots_adjust(wspace=0.5)
 
     plotting = data.flow_class.value_counts(1)
     plt.subplot(121)
     ax = sns.barplot(x=plotting.index, y=plotting.values)
     ax.set_ylabel("share")
-    ax.set_title("Share of flow_class");
+    ax.set_xlabel("Project type")
+    ax.set_title("Share of project type");
 
 
     plotting2 = data.groupby("flow_class").usd_defl.sum()
     plt.subplot(122)
     ax = sns.barplot(x=plotting2.index, y=(plotting2.values/1e6))
     ax.set_ylabel("Amount in million USD")
-    ax.set_title("Share of flow_class");
+    ax.set_xlabel("Project type")
+    ax.set_title("Financial amount per project type");
     
     plt.plot()
 
@@ -165,7 +168,7 @@ def sectoral_plot(data):
     sectoral_analysis_df = sectoral_analysis_df.sort_values(by="in_USD", ascending=False)
 
     # plotting
-    f, axs = plt.subplots(2,1,figsize=(15,15))
+    f, axs = plt.subplots(2,1,figsize=(14,18))
     plt.subplot(211)
     ax = sns.barplot(y=sectoral_analysis_df.index, x=sectoral_analysis_df.in_USD, color = "darkblue")
     ax.set_title("Value per sector");
@@ -183,7 +186,7 @@ def sectoral_plot(data):
                   + sectoral_analysis_df.loc["Industry, Mining, Construction", "in_USD"]
                   + sectoral_analysis_df.loc["Transport and Storage", "in_USD"]) / sectoral_analysis_df["in_USD"].sum()) 
     
-    print(f"All projects of the health-, education and governance sector account for {share_HEG*100:.2f}%,\nwhereas the energy-, transportation and industry/mining sector accounts for {share_ETI*100:.2f}%")
+    print(f"All projects of the health-, education and governance sector account for {share_HEG*100:.2f}% of the total financial value,\nwhereas the energy-, transportation and industry/mining sector accounts for {share_ETI*100:.2f}%")
 
 ###
 def quali_descriptive_plots(data, liste):
