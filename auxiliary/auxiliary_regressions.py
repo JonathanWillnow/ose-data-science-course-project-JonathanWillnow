@@ -213,7 +213,7 @@ def confidence_intervall_plot(data, alpha, exog_var):
     data_dict['variable'] = [data.l2OFn_all,  data.l2OFa_all_ln, data.l2OFn_oofv,  data.l2OFa_oofv_ln, data.l2OFn_oda,  data.l2OFa_oda_ln]
     
     # get all the models
-    if exog_var == ("l2Exports_ln" or "l2FDI_China_ln"):
+    if exog_var == "l2Exports_ln" or exog_var == "l2FDI_China_ln":
         as1,oofv_s1, oda_s1, as2, oofv_s2, oda_s2 = OFn_OFa_all_Table2_robustness(data, False, [exog_var])
         
         data_dict = {}
