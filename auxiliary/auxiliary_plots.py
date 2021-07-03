@@ -189,6 +189,29 @@ def sectoral_plot(data):
     print(f"All projects of the health-, education and governance sector account for {share_HEG*100:.2f}% of the total financial value,\nwhereas the energy-, transportation and industry/mining sector accounts for {share_ETI*100:.2f}%")
 
 ###
+def financeform_plot(data):
+    sns.set_theme(style="whitegrid")
+    
+    f, axs = plt.subplots(2,1, figsize = (12,10))
+    plt.subplots_adjust(wspace=0.25)
+
+    plt.subplot(211)
+    ODA_like = data[data.flow_class == "ODA-like"].flow.value_counts()
+    ax = sns.barplot(y=ODA_like.index, x=ODA_like.values)
+    ax.set_xlabel("Number of projects")
+    ax.set_title("Financeform of ODA-like projects");
+    
+    plt.subplot(212)
+    OOFv_like = data[data.flow_class == ("OOF-like" or "Vague (Official Finance)")].flow.value_counts()
+    ax = sns.barplot(y=OOFv_like.index, x=OOFv_like.values)
+    ax.set_xlabel("Number of projects")
+    ax.set_title("Financeform of OOFV-like projects");
+    
+    plt.tight_layout(pad=2.5);
+    
+    
+###
+
 def quali_descriptive_plots(data, liste):
     
     sns.set_theme(style="whitegrid")
