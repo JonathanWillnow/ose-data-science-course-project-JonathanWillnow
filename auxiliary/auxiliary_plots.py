@@ -269,3 +269,60 @@ def quanti_descriptive_plots(data, liste):
     ax = sns.scatterplot(x=liste[2], y="OFa_all_con", data=data,ax=axes[3,1], hue = "A_D99petroleum", style ="A_Ltaiwanr");
 
     plt.tight_layout(pad=2.5);
+    
+    
+###
+
+def plot_parallel_trends(results_df, data4):  
+    
+    # Since I code the x ticks by hard, I get a warning that I will supress here
+    import warnings
+    warnings.filterwarnings("ignore", category=UserWarning)
+    
+    input_data = pd.read_stata("data/test_instruments2.dta")
+    sns.set_theme(style="whitegrid")
+    fig, axes = plt.subplots(2,2, figsize=(15, 15))
+
+    plt.subplot(221)
+    fig.suptitle("Parallel trends assumption", fontsize = 20)
+    #fig.suptitle("Parallel trends assumption: Material and Reserves", fontsize = 20)
+
+    for plots in ["ln_steel", "ln_iron", "ln_timber", "ln_glass", "ln_aluminum"]:
+        ax = sns.lineplot(x = "year", y = plots, data = input_data, label = plots)
+
+    ax.set_ylabel("(log) production volume of respective input)")
+    ax.set_title("A: Chinas (logged) production of input materials over time");
+    plt.legend(fontsize = 15)
+    
+    
+    plt.subplot(222)
+    ax3 = sns.lineplot(x="year",y= "lower_probGrowthpc", data = results_df, label = "below median prob", )
+    ax3 = sns.lineplot(x ="year",y= "upper_probGrowthpc", data = results_df, label = "above median prob")
+    ax3.set_xticklabels(["2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014"]);
+    ax3.set_ylabel("Average growth p.c.")
+    ax3.set_title("B: Average Growth along countries within groups")
+    plt.legend(fontsize=15)
+    
+  
+    
+    plt.subplot(223)
+    ax = sns.lineplot(x= "year", y= "lower_probOFn_ln", data = results_df, label = "below median OFn")
+    ax = sns.lineplot(x= "year", y= "upper_probOFn_ln", data = results_df, label = "above median OFn")
+    ax = sns.lineplot(x="year", y="lower_probOFa_ln", data = results_df, label = "below median OFa")
+    ax = sns.lineplot(x="year", y="upper_probOFa_ln", data = results_df, label = "above median OFa")
+    ax.set_ylabel("(log) count of projects in t-2")
+    ax.set_xticklabels(["2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014"]);
+    ax.set_title("C: Chinese (logged and lagged) project count for groups ")
+    plt.legend(fontsize = 15)
+
+
+    data_mod = data4[(data4.year >= "2002-01-01") & (data4.countryname == "Angola")]
+    plt.subplot(224)
+    ax2 = sns.lineplot(x = "year", y = "l3Reserves", data = data_mod, label = "Reserves (t-3)")
+    ax2.set_ylabel("Change in foreign exchange reserves")
+    ax2.set_title("D: Chinas change in net foreign exchange reserves in trillion 2010 USD")
+
+    plt.legend(fontsize=15)
+    plt.tight_layout(pad=2.5);
+
+
