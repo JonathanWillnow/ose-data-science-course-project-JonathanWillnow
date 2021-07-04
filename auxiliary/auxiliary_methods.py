@@ -35,6 +35,7 @@ def OverindentifyingTest_after_Sargan(FS, SS, data, plot):
         Returns:
         ---------
             p_value_chi
+            R_squared of regressing the residuals on the exogenous variables
     """
   
     eps = SS.resids
