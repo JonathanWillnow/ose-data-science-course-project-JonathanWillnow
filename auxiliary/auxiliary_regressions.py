@@ -601,8 +601,9 @@ def OFn_OFa_all_Table2_robustness(data4, table, exog_var):
     
 def various_lags_2SLS_table(data_lagged):
 
-    table3_results = pd.DataFrame(index=['Chinese OF (t+1)','Chinese OF (t+0)','Chinese OF (t-1)','Chinese OF (t-2)',
-                                         'Chinese OF (t-3)','Chinese OF (t-4)','Chinese OF (t-5)','Chinese OF (t-6)'])
+    table3_results = pd.DataFrame(index=['Chinese OF (t+1)', 'SE (t+1)', 'Chinese OF (t+0)','SE (t+0)','Chinese OF (t-1)',
+                                         'SE (t-1)','Chinese OF (t-2)','SE (t-2)','Chinese OF (t-3)','SE (t-3)','Chinese OF (t-4)',
+                                         'SE (t-4)', 'Chinese OF (t-5)','SE (t-5)','Chinese OF (t-6)', 'SE (t-6)'])
     
     warnings.filterwarnings("ignore")
     ################################ Project count ###################################
@@ -643,6 +644,7 @@ def various_lags_2SLS_table(data_lagged):
     exog = sm.tools.add_constant(data_lagged[["Chinese_OFn(t-1)", "l1population_ln"]])
     mod_tminus1_all = lm.panel.PanelOLS(dependentSS, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data_lagged.code)
     tminus1_all = round(mod_tminus1_all.params[1],3)
+    sm1 = round(mod_tminus1_all.std_errors[1],3)
     ## t -2 all
     dependendFS = data_lagged.l2OFn_all
     exog2 = sm.tools.add_constant(data_lagged[["l1population_ln", "l3Reserves*probOFn_all","l3factor1*probOFn_all"]])
@@ -667,6 +669,7 @@ def various_lags_2SLS_table(data_lagged):
     exog = sm.tools.add_constant(data_lagged[["Chinese_OFn(t-3)", "l1population_ln"]])
     mod_tminus3_all = lm.panel.PanelOLS(dependentSS, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data_lagged.code)
     tminus3_all = round(mod_tminus3_all.params[1],3)
+   
     ## t -4 all
     dependendFS = data_lagged.l4OFn_all
     exog2 = sm.tools.add_constant(data_lagged[["l1population_ln", "l5Reserves*probOFn_all","l5factor1*probOFn_all"]])
@@ -691,6 +694,7 @@ def various_lags_2SLS_table(data_lagged):
     exog = sm.tools.add_constant(data_lagged[["Chinese_OFn(t-5)", "l1population_ln"]])
     mod_tminus5_all = lm.panel.PanelOLS(dependentSS, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data_lagged.code)
     tminus5_all = round(mod_tminus5_all.params[1],3)
+   
     ## t -6 all
     dependendFS = data_lagged.l6OFn_all
     exog2 = sm.tools.add_constant(data_lagged[["l1population_ln", "l7Reserves*probOFn_all","l7factor1*probOFn_all"]])
@@ -703,10 +707,19 @@ def various_lags_2SLS_table(data_lagged):
     exog = sm.tools.add_constant(data_lagged[["Chinese_OFn(t-6)", "l1population_ln"]])
     mod_tminus6_all = lm.panel.PanelOLS(dependentSS, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data_lagged.code)
     tminus6_all = round(mod_tminus6_all.params[1],3)
+    
+    sp1 = round(mod_tplus1_all.std_errors[1],3)
+    s = round(mod_t_all.std_errors[1],3)
+    sm2 = round(mod_tminus2_all.std_errors[1],3)
+    sm3 = round(mod_tminus3_all.std_errors[1],3)
+    sm4 = round(mod_tminus4_all.std_errors[1],3)
+    sm5 = round(mod_tminus5_all.std_errors[1],3)
+    sm6 = round(mod_tminus1_all.std_errors[1],3)
 
     ####################################### results ###########################################
-    table3_results["All projects"] = [tplus1_all, t_all, tminus1_all,tminus2_all,tminus3_all,tminus4_all,tminus5_all,tminus6_all]
-
+    table3_results["All projects"] = [tplus1_all,f"({sp1})", t_all, f"({s})", tminus1_all, f"({sm1})", tminus2_all, f"({sm2})", tminus3_all, f"({sm3})",
+                                      tminus4_all,f"({sm4})", tminus5_all, f"({sm5})", tminus6_all, f"({sm6})"]
+    
     ################################# OOF projects ###################################
     ## t+1 all
     dependendFS = data_lagged.f1OFn_oofv
@@ -804,9 +817,18 @@ def various_lags_2SLS_table(data_lagged):
     exog = sm.tools.add_constant(data_lagged[["Chinese_OFn_oofv(t-6)", "l1population_ln"]])
     mod_tminus6_oofv = lm.panel.PanelOLS(dependentSS, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data_lagged.code)
     tminus6_oofv = round(mod_tminus6_oofv.params[1],3)
+    
+    sp1 = round(mod_tplus1_oofv.std_errors[1],3)
+    s = round(mod_t_oofv.std_errors[1],3)
+    sm2 = round(mod_tminus2_oofv.std_errors[1],3)
+    sm3 = round(mod_tminus3_oofv.std_errors[1],3)
+    sm4 = round(mod_tminus4_oofv.std_errors[1],3)
+    sm5 = round(mod_tminus5_oofv.std_errors[1],3)
+    sm6 = round(mod_tminus1_oofv.std_errors[1],3)
 
     ####################################### results ###########################################
-    table3_results["OOF projects"] = [tplus1_oofv, t_oofv, tminus1_oofv,tminus2_oofv,tminus3_oofv,tminus4_oofv,tminus5_oofv,tminus6_oofv]
+    table3_results["OOF projects"] = [tplus1_oofv, f"({sp1})", t_oofv, f"({s})", tminus1_oofv, f"({sm1})", tminus2_oofv, f"({sm2})", 
+                                      tminus3_oofv, f"({sm3})", tminus4_oofv, f"({sm4})", tminus5_oofv, f"({sm5})", tminus6_oofv, f"({sm6})"]
 
     ################################# ODA projects ###################################
     ## t+1 all
@@ -905,9 +927,19 @@ def various_lags_2SLS_table(data_lagged):
     exog = sm.tools.add_constant(data_lagged[["Chinese_OFn_oda(t-6)", "l1population_ln"]])
     mod_tminus6_oda = lm.panel.PanelOLS(dependentSS, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data_lagged.code)
     tminus6_oda = round(mod_tminus6_oda.params[1],3)
+    
+    sp1 = round(mod_tplus1_oda.std_errors[1],3)
+    s = round(mod_t_oda.std_errors[1],3)
+    sm2 = round(mod_tminus2_oda.std_errors[1],3)
+    sm3 = round(mod_tminus3_oda.std_errors[1],3)
+    sm4 = round(mod_tminus4_oda.std_errors[1],3)
+    sm5 = round(mod_tminus5_oda.std_errors[1],3)
+    sm6 = round(mod_tminus1_oda.std_errors[1],3)
+
 
     ####################################### results ###########################################
-    table3_results["ODA projects"] = [tplus1_oda, t_oda, tminus1_oda,tminus2_oda,tminus3_oda,tminus4_oda,tminus5_oda,tminus6_oda]
+    table3_results["ODA projects"] = [tplus1_oda, f"({sp1})", t_oda, f"({s})", tminus1_oda, f"({sm1})", tminus2_oda, f"({sm2})", tminus3_oda, f"({sm3})", 
+                                      tminus4_oda, f"({sm4})", tminus5_oda, f"({sm5})", tminus6_oda, f"({sm6})"]
 
     ################################ Project amounts ###################################
     ################################# All projects ###################################
@@ -1007,9 +1039,18 @@ def various_lags_2SLS_table(data_lagged):
     exog = sm.tools.add_constant(data_lagged[["Chinese_OFa(t-6)", "l1population_ln"]])
     mod_tminus6_all = lm.panel.PanelOLS(dependentSS, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data_lagged.code)
     tminus6_all = round(mod_tminus6_all.params[1],3)
+    
+    sp1 = round(mod_tplus1_all.std_errors[1],3)
+    s = round(mod_t_all.std_errors[1],3)
+    sm2 = round(mod_tminus2_all.std_errors[1],3)
+    sm3 = round(mod_tminus3_all.std_errors[1],3)
+    sm4 = round(mod_tminus4_all.std_errors[1],3)
+    sm5 = round(mod_tminus5_all.std_errors[1],3)
+    sm6 = round(mod_tminus1_all.std_errors[1],3)
 
     ####################################### results ###########################################
-    table3_results["(log) All amounts"] = [tplus1_all, t_all, tminus1_all,tminus2_all,tminus3_all,tminus4_all,tminus5_all,tminus6_all]
+    table3_results["(log) All amounts"] = [tplus1_all,f"({sp1})", t_all, f"({s})", tminus1_all, f"({sm1})", tminus2_all, f"({sm2})", tminus3_all, f"({sm3})",
+                                           tminus4_all, f"({sm4})", tminus5_all, f"({sm5})", tminus6_all, f"({sm6})"]
 
     ################################# OOF projects ###################################
     ## t+1 all
@@ -1108,9 +1149,19 @@ def various_lags_2SLS_table(data_lagged):
     exog = sm.tools.add_constant(data_lagged[["Chinese_OFa_oofv(t-6)", "l1population_ln"]])
     mod_tminus6_oofv = lm.panel.PanelOLS(dependentSS, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data_lagged.code)
     tminus6_oofv = round(mod_tminus6_oofv.params[1],3)
+    
+    sp1 = round(mod_tplus1_oofv.std_errors[1],3)
+    s = round(mod_t_oofv.std_errors[1],3)
+    sm2 = round(mod_tminus2_oofv.std_errors[1],3)
+    sm3 = round(mod_tminus3_oofv.std_errors[1],3)
+    sm4 = round(mod_tminus4_oofv.std_errors[1],3)
+    sm5 = round(mod_tminus5_oofv.std_errors[1],3)
+    sm6 = round(mod_tminus1_oofv.std_errors[1],3)
+
 
     ####################################### results ###########################################
-    table3_results["(log) OOF amounts"] = [tplus1_oofv, t_oofv, tminus1_oofv,tminus2_oofv,tminus3_oofv,tminus4_oofv,tminus5_oofv,tminus6_oofv]
+    table3_results["(log) OOF amounts"] = [tplus1_oofv, f"({sp1})", t_oofv, f"({s})", tminus1_oofv, f"({sm1})", tminus2_oofv, f"({sm2})", 
+                                      tminus3_oofv, f"({sm3})", tminus4_oofv, f"({sm4})", tminus5_oofv, f"({sm5})", tminus6_oofv, f"({sm6})"]
 
     ################################# ODA projects ###################################
     ## t+1 all
@@ -1209,9 +1260,18 @@ def various_lags_2SLS_table(data_lagged):
     exog = sm.tools.add_constant(data_lagged[["Chinese_OFa_oda(t-6)", "l1population_ln"]])
     mod_tminus6_oda = lm.panel.PanelOLS(dependentSS, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data_lagged.code)
     tminus6_oda = round(mod_tminus6_oda.params[1],3)
+    
+    sp1 = round(mod_tplus1_oda.std_errors[1],3)
+    s = round(mod_t_oda.std_errors[1],3)
+    sm2 = round(mod_tminus2_oda.std_errors[1],3)
+    sm3 = round(mod_tminus3_oda.std_errors[1],3)
+    sm4 = round(mod_tminus4_oda.std_errors[1],3)
+    sm5 = round(mod_tminus5_oda.std_errors[1],3)
+    sm6 = round(mod_tminus1_oda.std_errors[1],3)
 
     ####################################### results ###########################################
-    table3_results["(log) ODA amounts"] = [tplus1_oda, t_oda, tminus1_oda,tminus2_oda,tminus3_oda,tminus4_oda,tminus5_oda,tminus6_oda]
-    table3_results["Observations"] = [mod_tplus1_oda.nobs, mod_t_oda.nobs, mod_tminus1_oda.nobs, mod_tminus2_oda.nobs,
-                                      mod_tminus3_oda.nobs, mod_tminus4_oda.nobs, mod_tminus5_oda.nobs, mod_tminus6_oda.nobs]
+    table3_results["(log) ODA amounts"] = [tplus1_oda, f"({sp1})", t_oda, f"({s})", tminus1_oda, f"({sm1})", tminus2_oda, f"({sm2})", tminus3_oda, f"({sm3})", 
+                                           tminus4_oda, f"({sm4})", tminus5_oda, f"({sm5})", tminus6_oda, f"({sm6})"]
+    table3_results["Observations"] = [mod_tplus1_oda.nobs, "-", mod_t_oda.nobs,"-", mod_tminus1_oda.nobs,"-", mod_tminus2_oda.nobs,"-",
+                                      mod_tminus3_oda.nobs,"-", mod_tminus4_oda.nobs, "-",mod_tminus5_oda.nobs, "-",mod_tminus6_oda.nobs,"-"]
     return(table3_results)
