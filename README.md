@@ -12,17 +12,18 @@ I will focus on the following questions:
 
 * What determines the allocation of Chinese development finance?
 * Does Chinas financial development finance led to economic growth?
-* Does Chinas finance undermine the effectivness of western development finance?
 
 To answer this question on whether and how Chinese development finance affects economic growth, instrumental varibales are employed that make use of the year-to-year changes in the supply of Chinese development finance (which will be introduced) in tandem with cross-sectional variation which is determined by the probability that countries receive such funding.
 
-<a href="https://nbviewer.jupyter.org/github/OpenSourceEconomics/ose-template-course-project/blob/master/example_project.ipynb"
+
+
+<a href="https://nbviewer.jupyter.org/github/OpenSourceEconomics/ose-data-science-course-project-JonathanWillnow/blob/master/JonathanWillnowOSE.ipynb"
    target="_parent">
    <img align="center"
   src="https://raw.githubusercontent.com/jupyter/design/master/logos/Badges/nbviewer_badge.png"
       width="109" height="20">
 </a>
-<a href="https://mybinder.org/v2/gh/OpenSourceEconomics/ose-template-course-project/master?filepath=example_project.ipynb"
+<a href="https://mybinder.org/v2/gh/OpenSourceEconomics/ose-data-science-course-project-JonathanWillnow/master?filepath=JonathanWillnowOSE.ipynb"
     target="_parent">
     <img align="center"
        src="https://mybinder.org/badge_logo.svg"
