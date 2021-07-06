@@ -98,6 +98,36 @@ def get_effectiveness_data(multiindex):
     data4["l2Exports_ln"] = np.log(data4.exports_china+1).shift(2);
     helperFDI = data4.ifdi_from_china;
     
+    # Getting year-to-year differences for Table 4 by calculating tis years number minus last years numbers
+    # Gross Fixed Capital Formation
+    data4["l1gfcf_con_ln"] = data4['gfcf_con_ln'].shift(1)   
+    data4["dgfcf_con_ln"] = data4['gfcf_con_ln'] - data4["l1gfcf_con_ln"] 
+    # Gross Fixed Private Capital Formation
+    data4["l1gfcf_priv_con_ln"] = data4['gfcf_priv_con_ln'].shift(1)   
+    data4["dgfcf_priv_con_ln"] = data4['gfcf_priv_con_ln'] - data4["l1gfcf_priv_con_ln"] 
+    # Imports
+    data4["l1imp_con_ln"] = data4['imp_con_ln'].shift(1)   
+    data4["dimp_con_ln"] = data4['imp_con_ln'] - data4["l1imp_con_ln"] 
+    # Exports
+    data4["l1exp_con_ln"] = data4['exp_con_ln'].shift(1)   
+    data4["dexp_con_ln"] = data4['exp_con_ln'] - data4["l1exp_con_ln"]  
+    # Overall Consumption
+    data4["l1cons_all_con_ln"] = data4['cons_all_con_ln'].shift(1)   
+    data4["dcons_all_con_ln"] = data4['cons_all_con_ln'] - data4["l1cons_all_con_ln"] 
+    # Houshold Consumption
+    data4["l1cons_hh_con_ln"] = data4['cons_hh_con_ln'].shift(1)   
+    data4["dcons_hh_con_ln"] = data4['cons_hh_con_ln'] - data4["l1cons_hh_con_ln"] 
+    # Government Consumption
+    data4["l1cons_gov_con_ln"] = data4['cons_gov_con_ln'].shift(1)   
+    data4["dcons_gov_con_ln"] = data4['cons_gov_con_ln'] - data4["l1cons_gov_con_ln"] 
+    # Savings
+    data4["l1sav_con_ln"] = data4['sav_con_ln'].shift(1)   
+    data4["dsav_con_ln"] = data4['sav_con_ln'] - data4["l1sav_con_ln"] 
+    # FDI Inflow
+    data4["l1fdi_con_ln"] = data4['fdi_con_ln'].shift(1)   
+    data4["dfdi_con_ln"] = data4['fdi_con_ln'] - data4["l1fdi_con_ln"] 
+    
+    
     #clean data
     helperFDI.loc[helperFDI <= 0] = 0;
     helperFDI = np.log(helperFDI+1);
