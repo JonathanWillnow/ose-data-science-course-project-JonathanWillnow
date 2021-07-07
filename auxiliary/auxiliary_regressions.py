@@ -1275,3 +1275,314 @@ def various_lags_2SLS_table(data_lagged):
     table3_results["Observations"] = [mod_tplus1_oda.nobs, "-", mod_t_oda.nobs,"-", mod_tminus1_oda.nobs,"-", mod_tminus2_oda.nobs,"-",
                                       mod_tminus3_oda.nobs,"-", mod_tminus4_oda.nobs, "-",mod_tminus5_oda.nobs, "-",mod_tminus6_oda.nobs,"-"]
     return(table3_results)
+
+
+####
+
+
+def replicate_table4(data, alpha):
+    
+    table4_results = pd.DataFrame(index=["Panel A: Gross Fixed Capital Formation    ","SE", "p-value", "CI","",
+                                         "Panel B: Gross Fixed Privat Formation     ","SE", "p-value", "CI","",
+                                         "Panel C: Foreign Direct Investment Inflows","SE", "p-value", "CI","",
+                                         "Panel D: Imports","SE","p-value", "CI","",
+                                         "Panel E: Exports","SE","p-value", "CI","",
+                                         "Panel F: Consumption, overall","SE","p-value", "CI","",
+                                         "Panel G: Consumption, households","SE","p-value", "CI","",
+                                         "Panel H: Consumption, government","SE","p-value", "CI","",
+                                         "Panel I: Savings", "SE","p-value", "CI",""])
+   # warnings.filterwarnings("ignore")
+
+##### all regressions for all projects
+
+    dependendFS = data.l2OFn_all
+    exog2 = sm.tools.add_constant(data[["l1population_ln", "l3Reserves*probOFn_all","l3factor1*probOFn_all"]])
+    mod_FS1 = lm.panel.PanelOLS(dependendFS, exog2, time_effects = True, entity_effects=True, drop_absorbed=True).fit(cov_type='clustered', clusters = data.code)
+
+    fitted_c = mod_FS1.fitted_values
+    data["Chinese_OFn(t-2)"] = fitted_c
+    
+
+    dependentSS1 = data.dgfcf_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS1, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS1 = round(mod_all.params[1],3) 
+    SE1 = round(mod_all.std_errors[1],3)
+    PV1 = round(mod_all.pvalues[1],3)
+    CI1 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    
+    dependentSS2 = data.dgfcf_priv_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS2, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS2 = round(mod_all.params[1],3) 
+    SE2 = round(mod_all.pvalues[1],3)
+    PV2 = round(mod_all.pvalues[1],3)
+    CI2 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    
+    dependentSS3 = data.dfdi_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS3, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS3 = round(mod_all.params[1],3) 
+    SE3 = round(mod_all.std_errors[1],3)
+    PV3 = round(mod_all.pvalues[1],3)
+    CI3 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    
+    dependentSS4 = data.dimp_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS4, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS4 = round(mod_all.params[1],3) 
+    SE4 = round(mod_all.std_errors[1],3)
+    PV4 = round(mod_all.pvalues[1],3)
+    CI4 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    
+    dependentSS5 = data.dexp_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS5, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS5 = round(mod_all.params[1],3) 
+    SE5 = round(mod_all.std_errors[1],3)
+    PV5 = round(mod_all.pvalues[1],3)
+    CI5 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    
+    dependentSS6 = data.dcons_all_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS6, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS6 = round(mod_all.params[1],3) 
+    SE6 = round(mod_all.std_errors[1],3)
+    PV6 = round(mod_all.pvalues[1],3)
+    CI6 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    
+    dependentSS7 = data.dcons_hh_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS7, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS7 = round(mod_all.params[1],3) 
+    SE7 = round(mod_all.std_errors[1],3)
+    PV7 = round(mod_all.pvalues[1],3)
+    CI7 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    
+    dependentSS8 = data.dcons_gov_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS8, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS8 = round(mod_all.params[1],3) 
+    SE8 = round(mod_all.std_errors[1],3)
+    PV8 = round(mod_all.pvalues[1],3)
+    CI8 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    
+    dependentSS9 = data.dsav_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS9, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS9 = round(mod_all.params[1],3) 
+    SE9 = round(mod_all.std_errors[1],3)
+    PV9 = round(mod_all.pvalues[1],3)
+    CI9 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    
+    
+    table4_results["All projects (OFn(t-2))"] = [SS1, f"({SE1})", PV1, CI1, "", SS2, f"({SE2})", PV2, CI2, "", SS3, f"({SE3})",
+                                                 PV3, CI3, "", SS4, f"({SE4})", PV4, CI4,"", SS5,f"({SE5})",PV5,CI5, "",
+                                                 SS6,f"({SE6})", PV6,CI6, "", SS7, f"({SE7})", PV7, CI7, "",
+                                                 SS8, f"({SE8})", PV8, CI8,"", SS9, f"({SE9})", PV9,CI9, ""]
+    
+###################################################################################
+###################################################################################
+
+    dependendFS = data.l2OFn_oofv
+    exog2 = sm.tools.add_constant(data[["l1population_ln", "l3Reserves*probOFn_oofv","l3factor1*probOFn_oofv"]])
+    mod_FS1 = lm.panel.PanelOLS(dependendFS, exog2, time_effects = True, entity_effects=True, drop_absorbed=True).fit(cov_type='clustered', clusters = data.code)
+
+    fitted_c = mod_FS1.fitted_values
+    data["Chinese_OFn(t-2)"] = fitted_c
+    
+
+    dependentSS1 = data.dgfcf_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS1, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS1 = round(mod_all.params[1],3) 
+    SE1 = round(mod_all.std_errors[1],3)
+    PV1 = round(mod_all.pvalues[1],3)
+    CI1 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    
+    dependentSS2 = data.dgfcf_priv_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS2, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS2 = round(mod_all.params[1],3) 
+    SE2 = round(mod_all.pvalues[1],3)
+    PV2 = round(mod_all.pvalues[1],3)
+    CI2 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    
+    dependentSS3 = data.dfdi_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS3, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS3 = round(mod_all.params[1],3) 
+    SE3 = round(mod_all.std_errors[1],3)
+    PV3 = round(mod_all.pvalues[1],3)
+    CI3 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    
+    dependentSS4 = data.dimp_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS4, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS4 = round(mod_all.params[1],3) 
+    SE4 = round(mod_all.std_errors[1],3)
+    PV4 = round(mod_all.pvalues[1],3)
+    CI4 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    
+    dependentSS5 = data.dexp_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS5, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS5 = round(mod_all.params[1],3) 
+    SE5 = round(mod_all.std_errors[1],3)
+    PV5 = round(mod_all.pvalues[1],3)
+    CI5 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    
+    dependentSS6 = data.dcons_all_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS6, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS6 = round(mod_all.params[1],3) 
+    SE6 = round(mod_all.std_errors[1],3)
+    PV6 = round(mod_all.pvalues[1],3)
+    CI6 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    
+    dependentSS7 = data.dcons_hh_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS7, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS7 = round(mod_all.params[1],3) 
+    SE7 = round(mod_all.std_errors[1],3)
+    PV7 = round(mod_all.pvalues[1],3)
+    CI7 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    
+    dependentSS8 = data.dcons_gov_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS8, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS8 = round(mod_all.params[1],3) 
+    SE8 = round(mod_all.std_errors[1],3)
+    PV8 = round(mod_all.pvalues[1],3)
+    CI8 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    
+    dependentSS9 = data.dsav_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS9, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS9 = round(mod_all.params[1],3) 
+    SE9 = round(mod_all.std_errors[1],3)
+    PV9 = round(mod_all.pvalues[1],3)
+    CI9 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    
+    
+    table4_results["OOFV projects (OFn(t-2))"] = [SS1, f"({SE1})", PV1, CI1, "", SS2, f"({SE2})", PV2, CI2, "", SS3, f"({SE3})",
+                                                 PV3, CI3, "", SS4, f"({SE4})", PV4, CI4,"", SS5,f"({SE5})",PV5,CI5, "",
+                                                 SS6,f"({SE6})", PV6,CI6, "", SS7, f"({SE7})", PV7, CI7, "",
+                                                 SS8, f"({SE8})", PV8, CI8,"", SS9, f"({SE9})", PV9,CI9, ""]
+    
+###################################################################################
+###################################################################################
+
+    dependendFS = data.l2OFn_oda
+    exog2 = sm.tools.add_constant(data[["l1population_ln", "l3Reserves*probOFn_oda","l3factor1*probOFn_oda"]])
+    mod_FS1 = lm.panel.PanelOLS(dependendFS, exog2, time_effects = True, entity_effects=True, drop_absorbed=True).fit(cov_type='clustered', clusters = data.code)
+
+    fitted_c = mod_FS1.fitted_values
+    data["Chinese_OFn(t-2)"] = fitted_c
+    
+
+    dependentSS1 = data.dgfcf_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS1, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS1 = round(mod_all.params[1],3) 
+    SE1 = round(mod_all.std_errors[1],3)
+    PV1 = round(mod_all.pvalues[1],3)
+    CI1 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    n1 = mod_all.nobs
+    
+    dependentSS2 = data.dgfcf_priv_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS2, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS2 = round(mod_all.params[1],3) 
+    SE2 = round(mod_all.pvalues[1],3)
+    PV2 = round(mod_all.pvalues[1],3)
+    CI2 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    n2 = mod_all.nobs
+    
+    dependentSS3 = data.dfdi_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS3, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS3 = round(mod_all.params[1],3) 
+    SE3 = round(mod_all.std_errors[1],3)
+    PV3 = round(mod_all.pvalues[1],3)
+    CI3 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    n3 = mod_all.nobs
+    
+    dependentSS4 = data.dimp_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS4, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS4 = round(mod_all.params[1],3) 
+    SE4 = round(mod_all.std_errors[1],3)
+    PV4 = round(mod_all.pvalues[1],3)
+    CI4 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    n4 = mod_all.nobs
+    
+    dependentSS5 = data.dexp_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS5, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS5 = round(mod_all.params[1],3) 
+    SE5 = round(mod_all.std_errors[1],3)
+    PV5 = round(mod_all.pvalues[1],3)
+    CI5 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    n5 = mod_all.nobs
+    
+    dependentSS6 = data.dcons_all_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS6, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS6 = round(mod_all.params[1],3) 
+    SE6 = round(mod_all.std_errors[1],3)
+    PV6 = round(mod_all.pvalues[1],3)
+    CI6 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    n6 = mod_all.nobs
+    
+    dependentSS7 = data.dcons_hh_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS7, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS7 = round(mod_all.params[1],3) 
+    SE7 = round(mod_all.std_errors[1],3)
+    PV7 = round(mod_all.pvalues[1],3)
+    CI7 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    n7 = mod_all.nobs
+    
+    dependentSS8 = data.dcons_gov_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS8, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS8 = round(mod_all.params[1],3) 
+    SE8 = round(mod_all.std_errors[1],3)
+    PV8 = round(mod_all.pvalues[1],3)
+    CI8 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    n8 = mod_all.nobs
+    
+    dependentSS9 = data.dsav_con_ln
+    exog = sm.tools.add_constant(data[["Chinese_OFn(t-2)", "l1population_ln"]])
+    mod_all = lm.panel.PanelOLS(dependentSS9, exog, time_effects=True, entity_effects= True).fit(cov_type='clustered', clusters = data.code)
+    SS9 = round(mod_all.params[1],3) 
+    SE9 = round(mod_all.std_errors[1],3)
+    PV9 = round(mod_all.pvalues[1],3)
+    CI9 = round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)","lower"],4), round(mod_all.conf_int(1-alpha).loc["Chinese_OFn(t-2)", "upper"],4)
+    n9 = mod_all.nobs
+    
+    table4_results["ODA projects (OFn(t-2))"] = [SS1, f"({SE1})", PV1, CI1, "", SS2, f"({SE2})", PV2, CI2, "", SS3, f"({SE3})",
+                                                 PV3, CI3, "", SS4, f"({SE4})", PV4, CI4,"", SS5,f"({SE5})",PV5,CI5, "",
+                                                 SS6,f"({SE6})", PV6,CI6, "", SS7, f"({SE7})", PV7, CI7, "",
+                                                 SS8, f"({SE8})", PV8, CI8,"", SS9, f"({SE9})", PV9,CI9, ""]
+    #number of obs
+    table4_results["number Obs."] = [n1,"","","","",n2,"","","","",n3,"","","","",n4,"","","","",n5,"","","","",
+                              n6,"","","","",n7,"","","","",n8,"","","","",n9,"","","",""]
+    
+    # how many countries were considered?
+    table4_results["countries"] = [(150-data.dgfcf_con_ln.groupby(data.code).sum().value_counts()[0]),"","","","",
+                                 (150-data.dgfcf_priv_con_ln.groupby(data.code).sum().value_counts()[0]),"","","","",
+                                  (150-data.dfdi_con_ln.groupby(data.code).sum().value_counts()[0]),"","","","",
+                                  (150-data.dimp_con_ln.groupby(data.code).sum().value_counts()[0]),"","","","",
+                                  (150-data.dexp_con_ln.groupby(data.code).sum().value_counts()[0]),"","","","",
+                                  (150-data.dcons_all_con_ln.groupby(data.code).sum().value_counts()[0]),"","","","",
+                                  (150-data.dcons_hh_con_ln.groupby(data.code).sum().value_counts()[0]),"","","","",
+                                  (150-data.dcons_gov_con_ln.groupby(data.code).sum().value_counts()[0]),"","","","",
+                                  (150-data.dsav_con_ln.groupby(data.code).sum().value_counts()[0]),"","","",""]
+    
+    
+    print("Confidence Intervall reported for alpha:", alpha)                              
+    return(table4_results)
+   
+
