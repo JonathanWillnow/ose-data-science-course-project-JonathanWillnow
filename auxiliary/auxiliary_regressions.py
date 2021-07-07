@@ -1280,7 +1280,7 @@ def various_lags_2SLS_table(data_lagged):
 ####
 
 
-def replicate_table4(data, alpha):
+def replicate_table5(data, alpha):
     
     table4_results = pd.DataFrame(index=["Panel A: Gross Fixed Capital Formation    ","SE", "p-value", "CI","",
                                          "Panel B: Gross Fixed Privat Formation     ","SE", "p-value", "CI","",
