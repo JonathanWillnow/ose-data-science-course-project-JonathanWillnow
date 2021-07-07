@@ -36,8 +36,8 @@ def get_allocation_data():
     # Now Drop missing values and return to 2000-2014 period
     data3 = data3[data3.year >= "2000-01-01"].copy()
     data3.replace([np.inf, -np.inf], np.nan, inplace=True);
-    data3 = data3.dropna(0)#subset = ["A_LINLINECHN","A_Ltaiwanr","A_Ltrade_con_ln","A_D99petroleum",
-                #  "A_LDebtGDP","A_Lpolity2","A_Lgdppc_con_ln", "A_Lpopulation_ln","A_Lenglish"])
+    data3 = data3.dropna(0, subset = ["A_LINLINECHN","A_Ltaiwanr","A_Ltrade_con_ln","A_D99petroleum",
+                 "A_LDebtGDP","A_Lpolity2","A_Lgdppc_con_ln", "A_Lpopulation_ln","A_Lenglish"])
 
     
     return(data3)
@@ -497,9 +497,10 @@ def get_effectiveness_data_various_lags(multiindex):
     data4.loc[data4.countryname == "Barbados"] = np.nan            #only one observation
     
     # apply final cutoff and cleaning up
-    data4 = data4[data4.year >= "1999-01-01"].copy()
+    data4 = data4[data4.year >= "1997-01-01"].copy()
     data4.replace([np.inf, -np.inf], np.nan, inplace=True)
-    data4 = data4.dropna(0, subset = ["l1population_ln"])#, "l2FDI_China_ln", "l2Exports_ln"])
+    data4 = data4.dropna(0, subset = ["l1population_ln", "growth_pc"])
+    #(0, subset = ["l1population_ln"])#, "l2FDI_China_ln", "l2Exports_ln"])
     
     
     
