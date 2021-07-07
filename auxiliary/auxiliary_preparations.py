@@ -142,7 +142,7 @@ def get_effectiveness_data(multiindex):
     # apply final cutoff and cleaning up
     data4 = data4[data4.year >= "2000-01-01"].copy()
     data4.replace([np.inf, -np.inf], np.nan, inplace=True)
-    data4 = data4.dropna(0, subset = ["growth_pc", "l1population_ln", "l2OFn_all"])#, "l2FDI_China_ln", "l2Exports_ln"])
+    data4 = data4.dropna(0, subset = ["l1population_ln", "l2OFn_all", "growth_pc"])#, "l2FDI_China_ln", "l2Exports_ln"])
     
     
     
@@ -151,6 +151,118 @@ def get_effectiveness_data(multiindex):
         data4 = data4.set_index(["countryname", "year"])
     
     return(data4)
+
+####
+
+def get_effectiveness_data2(multiindex):
+    data4 = pd.read_stata("data/AEJ2020 effectiveness.dta")
+
+    data4 = data4[data4.year >= "1995-01-01"].copy()
+    data4 = data4.set_index(["countryname", "year"])
+
+    # First I will check and create rows for all countries that miss some years of observation. 
+    # This is done in order to use tje shift() function properly
+    # Without this, shift does not work properly.
+
+    idx = list(tools.product(data4.index.levels[0], data4.index.levels[1]))
+    data4 = data4.reindex(idx).reset_index()
+
+    # reset the index again and apply the lagged transformations 
+
+    data4["l3factor1"] = data4.factor1.shift(3)
+    data4["l3Reserves"] = data4.reservesCHN_con.shift(3)
+    data4["l1population_ln"] = data4['population_ln'].shift(1)
+    data4["l2OFn_all"] = data4['OFn_all'].shift(2)
+    data4["l2OFn_oofv"] = data4["OFn_oofv"].shift(2)
+    data4["l2OFn_oda"] = data4["OFn_oda"].shift(2)
+    
+    
+    # rename variable
+    
+    data4["l2OFa_all_ln"] = data4.OFa_all_con_ln.shift(2)
+    data4["l2OFa_oofv_ln"] = data4["OFa_oofv_con_ln"].shift(2)
+    data4["l2OFa_oda_ln"] = data4["OFa_oda_con_ln"].shift(2)
+    
+    data4["l3Reserves*probOFn_all"] = data4["IV_reserves_OFn_all_1_ln"].shift(3)
+    data4["l3factor1*probOFn_all"] = data4["IV_factor1_OFn_all_1_ln"].shift(3)
+    
+    data4["l3Reserves*probOFn_oda"] = data4["IV_reserves_OFn_oda_1_ln"].shift(3)
+    data4["l3factor1*probOFn_oda"] = data4["IV_factor1_OFn_oda_1_ln"].shift(3)
+    
+    data4["l3Reserves*probOFn_oofv"] = data4["IV_reserves_OFn_oofv_1_ln"].shift(3)
+    data4["l3factor1*probOFn_oofv"] = data4["IV_factor1_OFn_oofv_1_ln"].shift(3)
+    
+    data4["l3Reserves*probOFa_all_ln"] = data4["IV_reserves_OFa_all_1_ln"].shift(3)
+    data4["l3factor1*probOFa_all_ln"] = data4["IV_factor1_OFa_all_1_ln"].shift(3)
+    
+    data4["l3Reserves*probOFa_oda_ln"] = data4["IV_reserves_OFa_oda_1_ln"].shift(3)
+    data4["l3factor1*probOFa_oda_ln"] = data4["IV_factor1_OFa_oda_1_ln"].shift(3)
+    
+    data4["l3Reserves*probOFa_oofv_ln"] = data4["IV_reserves_OFa_oofv_1_ln"].shift(3)
+    data4["l3factor1*probOFa_oofv_ln"] = data4["IV_factor1_OFa_oofv_1_ln"].shift(3)
+    
+    # supress special type of warnings
+    pd.options.mode.chained_assignment = None  
+    
+    # variables for robustness Checks
+    data4["l2Exports_ln"] = np.log(data4.exports_china+1).shift(2);
+    helperFDI = data4.ifdi_from_china;
+    
+    # Getting year-to-year differences for Table 4 by calculating tis years number minus last years numbers
+    # Gross Fixed Capital Formation
+    data4["l1gfcf_con_ln"] = data4['gfcf_con_ln'].shift(1)   
+    data4["dgfcf_con_ln"] = data4['gfcf_con_ln'] - data4["l1gfcf_con_ln"] 
+    # Gross Fixed Private Capital Formation
+    data4["l1gfcf_priv_con_ln"] = data4['gfcf_priv_con_ln'].shift(1)   
+    data4["dgfcf_priv_con_ln"] = data4['gfcf_priv_con_ln'] - data4["l1gfcf_priv_con_ln"] 
+    # Imports
+    data4["l1imp_con_ln"] = data4['imp_con_ln'].shift(1)   
+    data4["dimp_con_ln"] = data4['imp_con_ln'] - data4["l1imp_con_ln"] 
+    # Exports
+    data4["l1exp_con_ln"] = data4['exp_con_ln'].shift(1)   
+    data4["dexp_con_ln"] = data4['exp_con_ln'] - data4["l1exp_con_ln"]  
+    # Overall Consumption
+    data4["l1cons_all_con_ln"] = data4['cons_all_con_ln'].shift(1)   
+    data4["dcons_all_con_ln"] = data4['cons_all_con_ln'] - data4["l1cons_all_con_ln"] 
+    # Houshold Consumption
+    data4["l1cons_hh_con_ln"] = data4['cons_hh_con_ln'].shift(1)   
+    data4["dcons_hh_con_ln"] = data4['cons_hh_con_ln'] - data4["l1cons_hh_con_ln"] 
+    # Government Consumption
+    data4["l1cons_gov_con_ln"] = data4['cons_gov_con_ln'].shift(1)   
+    data4["dcons_gov_con_ln"] = data4['cons_gov_con_ln'] - data4["l1cons_gov_con_ln"] 
+    # Savings
+    data4["l1sav_con_ln"] = data4['sav_con_ln'].shift(1)   
+    data4["dsav_con_ln"] = data4['sav_con_ln'] - data4["l1sav_con_ln"] 
+    # FDI Inflow
+    data4["l1fdi_con_ln"] = data4['fdi_con_ln'].shift(1)   
+    data4["dfdi_con_ln"] = data4['fdi_con_ln'] - data4["l1fdi_con_ln"] 
+    
+    
+    #clean data
+    helperFDI.loc[helperFDI <= 0] = 0;
+    helperFDI = np.log(helperFDI+1);
+    data4["l2FDI_China_ln"] = helperFDI.shift(2);
+  
+    
+    # Set observations for countries to NaN according to Appendix C1 of the paper
+    data4.loc[data4.countryname == "Antigua and Barbuda"] = np.nan #only one observation
+    data4.loc[data4.countryname == "China"] = np.nan               #not interested in impact on China
+    data4.loc[data4.countryname == "Barbados"] = np.nan            #only one observation
+    
+    # apply final cutoff and cleaning up
+    data4 = data4[data4.year >= "2000-01-01"].copy()
+    data4.replace([np.inf, -np.inf], np.nan, inplace=True)
+    data4 = data4.dropna(0, subset = ["l1population_ln"])#, "l2FDI_China_ln", "l2Exports_ln"])
+    
+    
+    
+
+    if multiindex == True:
+        data4 = data4.set_index(["countryname", "year"])
+    
+    return(data4)
+
+
 
 
 ####
@@ -387,7 +499,7 @@ def get_effectiveness_data_various_lags(multiindex):
     # apply final cutoff and cleaning up
     data4 = data4[data4.year >= "1999-01-01"].copy()
     data4.replace([np.inf, -np.inf], np.nan, inplace=True)
-    data4 = data4.dropna(0, subset = ["growth_pc", "l1population_ln"])#, "l2FDI_China_ln", "l2Exports_ln"])
+    data4 = data4.dropna(0, subset = ["l1population_ln"])#, "l2FDI_China_ln", "l2Exports_ln"])
     
     
     
