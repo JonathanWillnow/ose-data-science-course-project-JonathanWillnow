@@ -263,10 +263,10 @@ def quanti_descriptive_plots(data, liste):
     ax = sns.scatterplot(x=liste[2], y="OFa_all_con", data=data,ax=axes[2,1], hue = "A_D99petroleum", style ="A_Ltaiwanr");
     
     axes[3,0].set_title(liste[3])
-    sns.scatterplot(x=liste[2], y="OFn_all", data=data,ax=axes[3,0], hue = "A_D99petroleum", style ="A_Ltaiwanr");
+    sns.scatterplot(x=liste[3], y="OFn_all", data=data,ax=axes[3,0], hue = "A_D99petroleum", style ="A_Ltaiwanr");
 
     axes[3,1].set_title(liste[3])
-    ax = sns.scatterplot(x=liste[2], y="OFa_all_con", data=data,ax=axes[3,1], hue = "A_D99petroleum", style ="A_Ltaiwanr");
+    ax = sns.scatterplot(x=liste[3], y="OFa_all_con", data=data,ax=axes[3,1], hue = "A_D99petroleum", style ="A_Ltaiwanr");
 
     plt.tight_layout(pad=2.5);
     
@@ -291,7 +291,7 @@ def plot_parallel_trends(results_df, data4):
         ax = sns.lineplot(x = "year", y = plots, data = input_data, label = plots)
 
     ax.set_ylabel("(log) production volume of respective input)")
-    ax.set_title("A: Chinas (logged) production of input materials over time");
+    ax.set_title("Panel A: Chinas (logged) production of input materials over time");
     plt.legend(fontsize = 15)
     
     
@@ -300,7 +300,7 @@ def plot_parallel_trends(results_df, data4):
     ax3 = sns.lineplot(x ="year",y= "upper_probGrowthpc", data = results_df, label = "above median prob")
     ax3.set_xticklabels(["2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014"]);
     ax3.set_ylabel("Average growth p.c.")
-    ax3.set_title("B: Average Growth along countries within groups")
+    ax3.set_title("Panel B: Average Growth along countries within groups")
     plt.legend(fontsize=15)
     
   
@@ -310,9 +310,9 @@ def plot_parallel_trends(results_df, data4):
     ax = sns.lineplot(x= "year", y= "upper_probOFn_ln", data = results_df, label = "above median OFn")
     ax = sns.lineplot(x="year", y="lower_probOFa_ln", data = results_df, label = "below median OFa")
     ax = sns.lineplot(x="year", y="upper_probOFa_ln", data = results_df, label = "above median OFa")
-    ax.set_ylabel("(log) count of projects in t-2")
+    ax.set_ylabel("(log) count and financial amount of projects in t-2")
     ax.set_xticklabels(["2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014"]);
-    ax.set_title("C: Chinese (logged and lagged) project count for groups ")
+    ax.set_title("Panel C: Chinese (logged and lagged) project count and financial amounts for groups ")
     plt.legend(fontsize = 15)
 
 
@@ -320,7 +320,7 @@ def plot_parallel_trends(results_df, data4):
     plt.subplot(224)
     ax2 = sns.lineplot(x = "year", y = "l3Reserves", data = data_mod, label = "Reserves (t-3)")
     ax2.set_ylabel("Change in foreign exchange reserves")
-    ax2.set_title("D: Chinas change in net foreign exchange reserves in trillion 2010 USD")
+    ax2.set_title("Panel D: Chinas change in net foreign exchange reserves in trillion 2010 USD")
 
     plt.legend(fontsize=15)
     plt.tight_layout(pad=2.5);
