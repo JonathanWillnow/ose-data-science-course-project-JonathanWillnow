@@ -366,7 +366,7 @@ def confidence_intervall_plot(data, alpha, exog_var):
         plt.yticks(list(range(len(dataset))), ["OFn_all", "OFa_all_ln", "OFn_oofv", "OFa_oofv_ln", "OFn_oda", "OFa_oda_ln"])
         plt.xlabel("Effect on Growth for OLS")
 
-        plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
+        #plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
 
         x = 0
         plt.subplot(122)

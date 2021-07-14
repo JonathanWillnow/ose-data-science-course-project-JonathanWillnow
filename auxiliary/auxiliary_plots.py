@@ -97,14 +97,14 @@ def worldplot_2(data, cc, pc):
     fig.suptitle('Chinese Development Finance', fontsize=25)
     
     if pc == "OFa_all_con":
-        world_df.plot(column=pc, ax = ax, legend=True, legend_kwds={"label":"\n Chinese Development Finance in $10 bln",
+        world_df.plot(column=pc, ax = ax, legend=True, cmap='jet', legend_kwds={"label":"\n Chinese Development Finance in $10 bln",
                                                                          "orientation": "horizontal"}, 
                                                               missing_kwds={"color": "lightgrey",
                                                                             "edgecolor": "red",
                                                                             "hatch": "///",
                                                                             "label": "Missing values"});
     else:
-        world_df.plot(column=pc, ax = ax, legend=True, legend_kwds={"label":"\n Chinese Development Finance project count",###ADDDDJUST!!!!!
+        world_df.plot(column=pc, ax = ax, legend=True, cmap='jet', legend_kwds={"label":"\n Chinese Development Finance project count",###ADDDDJUST!!!!!
                                                                          "orientation": "horizontal"}, 
                                                               missing_kwds={"color": "lightgrey",
                                                                             "edgecolor": "red",
@@ -136,9 +136,9 @@ def flow_class_plot(data):
     
     plt.plot()
 
-    df = pd.DataFrame([["ODA", plotting[0], plotting2[0]/1e6],
-                      ["OOF", plotting[1], plotting[1]/1e6],
-                      ["Vague",plotting[2], plotting2[2]/1e6]], columns = ["flow_class", "Share", "Amount in USD"])
+    df = pd.DataFrame([["ODA", plotting[0], round(plotting2[0]/1e6,2)],
+                      ["OOF", plotting[1], round(plotting2[1]/1e6,2)],
+                      ["Vague",plotting[2], round(plotting2[2]/1e6,2)]], columns = ["flow_class", "Share", "Amount in mio 2010 USD"])
     
     #print(f"Number of projects:\nODA-like:{plotting[0]*100}%, \nOOF-like:{plotting[1]*100}%, \nVague OF:{plotting[2]*100}%")
    # print(f"ODA-like:{plotting2[0]/1e6:.2f}, \nOOF-like:{plotting2[1]/1e6:.2f}, \nVague OF:{plotting2[2]/1e6:.2f}")
@@ -245,28 +245,28 @@ def quanti_descriptive_plots(data, liste):
     fig, axes = plt.subplots(4, 2, figsize=(14, 16))
     # Use the axes for plotting
     axes[0,0].set_title(liste[0])
-    sns.scatterplot(x=liste[0], y="OFn_all", data=data, ax=axes[0,0], hue = "A_D99petroleum", style ="A_Ltaiwanr")
+    sns.scatterplot(x=liste[0], y="OFn_all", data=data, ax=axes[0,0])
 
     axes[0,1].set_title(liste[0])
-    ax = sns.scatterplot(x=liste[0], y="OFa_all_con", data=data, ax=axes[0,1], hue = "A_D99petroleum", style ="A_Ltaiwanr")
+    ax = sns.scatterplot(x=liste[0], y="OFa_all_con", data=data, ax=axes[0,1])
 
     axes[1,0].set_title(liste[1])
-    sns.scatterplot(x=liste[1], y="OFn_all", data=data,ax=axes[1,0], hue = "A_D99petroleum", style ="A_Ltaiwanr");
+    sns.scatterplot(x=liste[1], y="OFn_all", data=data,ax=axes[1,0]);
 
     axes[1,1].set_title(liste[1])
-    ax = sns.scatterplot(x=liste[1], y="OFa_all_con", data=data,ax=axes[1,1], hue = "A_D99petroleum", style ="A_Ltaiwanr");
+    ax = sns.scatterplot(x=liste[1], y="OFa_all_con", data=data,ax=axes[1,1]);
 
     axes[2,0].set_title(liste[2])
-    sns.scatterplot(x=liste[2], y="OFn_all", data=data,ax=axes[2,0], hue = "A_D99petroleum", style ="A_Ltaiwanr");
+    sns.scatterplot(x=liste[2], y="OFn_all", data=data,ax=axes[2,0]);
 
     axes[2,1].set_title(liste[2])
-    ax = sns.scatterplot(x=liste[2], y="OFa_all_con", data=data,ax=axes[2,1], hue = "A_D99petroleum", style ="A_Ltaiwanr");
+    ax = sns.scatterplot(x=liste[2], y="OFa_all_con", data=data,ax=axes[2,1]);
     
     axes[3,0].set_title(liste[3])
-    sns.scatterplot(x=liste[3], y="OFn_all", data=data,ax=axes[3,0], hue = "A_D99petroleum", style ="A_Ltaiwanr");
+    sns.scatterplot(x=liste[3], y="OFn_all", data=data,ax=axes[3,0]);
 
     axes[3,1].set_title(liste[3])
-    ax = sns.scatterplot(x=liste[3], y="OFa_all_con", data=data,ax=axes[3,1], hue = "A_D99petroleum", style ="A_Ltaiwanr");
+    ax = sns.scatterplot(x=liste[3], y="OFa_all_con", data=data,ax=axes[3,1]);
 
     plt.tight_layout(pad=2.5);
     
