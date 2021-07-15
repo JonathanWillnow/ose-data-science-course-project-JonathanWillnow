@@ -16,7 +16,7 @@ from IPython.display import HTML
 from auxiliary.auxiliary_regressions import *
 
 
-def OverindentifyingTest_after_Sargan(FS, SS, data, plot):
+def OveridentifyingTest_after_Sargan(FS, SS, data, plot):
     
     """ Function to calculate the Chisquared p value for the overidentifying Test after Sargan for the case when we 
     calculated the 2SLS estimator by performing first- and second-stage regression seperatly. The function was designed
@@ -70,7 +70,7 @@ def all_p_values(data):
     result = pd.DataFrame(columns = ["p_value", "R_squared"], index=["OFn_all", "OFa_all_ln", "OFn_oofv",
                                                         "OFa_oofv_ln", "OFn_oda", "OFa_oda_ln"])
     for a,b,c in zip([SS1,SS2,SS1_oofv, SS2_oofv, SS1_oda, SS2_oda], [FS1, FS2, FS1_oofv, FS2_oofv, FS1_oda, FS2_oda], result.index):
-        pval, rsquared = OverindentifyingTest_after_Sargan(b, a, data, False)
+        pval, rsquared = OveridentifyingTest_after_Sargan(b, a, data, False)
         result.loc[c,"p_value"] = pval
         result.loc[c,"R_squared"] = rsquared
             
