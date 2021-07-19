@@ -4,7 +4,8 @@ This is the final project (in progress) of the OSE data science course summerter
 
 ## Project overview
 
-This project replicates and comments on the findings of Dreher et. al (2021): Aid, China, and Growth: Evidence from a New Global Development Finance Dataset. American Economic Journal: Economic Policy, vol. 13(2), May 2021 (pp. 135-174).
+This project replicates and comments on the findings of 
+> [Dreher et. al (2021): Aid, China, and Growth: Evidence from a New Global Development Finance Dataset. American Economic Journal: Economic Policy, vol. 13(2), May 2021 (pp. 135-174).](https://www.aeaweb.org/articles?id=10.1257/pol.20180631)
 
 The Belt and Road Initiative (BRI), better known as the "new silk road initiative" is just one of many instances of China´s overseas activities of financing development, especially known to the Europeans. Other projects, mostly infrastructure projects (by transaction value), link China within Asia and with the African continent. This role of China as significant donor raises strong opinions, but the debate was based on only little facts since most of the details are not officially reported. The paper at hand uses the Tracking Underreported Financial Flows (TUFF) methodology to introduce a new dataset that provides the needed evidentiary foundations that was needed for this issue.
 
@@ -37,6 +38,10 @@ To answer this question on whether and how Chinese development finance affects e
 
 For full reproducibility of this project, a continuous integration workflow was set up using [GitHub Actions CI](https://docs.github.com/en/actions). I also provided an environment.yml file of my environment to ensure full reproducibility of my notebook.
 
+
+## Acknowledgement
+
+This replication was only possible since Dreher et al. (2021) provide their data and their STATA code. I would also like to thank all the awesome people that provide their knowledge by creating and managing the various documentations and coding examples available all over the internet. Special thanks to Prof. Dr. Philipp Eisenhauer and Prof. Dr. Dominik Liebl, who have taught me a lot in the last two semesters and without whom I would not have been able to complete this project.
 
 
 ## Sources
