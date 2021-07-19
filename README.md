@@ -1,6 +1,6 @@
-# OSE data science project summerterm 2021 by Jonathan Willnow
+# Microeconometrics, Summer 2021, Prof. Dr. Philipp Eisenhauer | Jonathan Willnow | Replication of Dreher et al. (2021) 
 
-This is the final project (in progress) of the OSE data science course summerterm 2021 by Jonathan Willnow. 
+This is the final project of the Microeconometrics / OSE Data Science course (summerterm 2021) by Jonathan Willnow. 
 
 ## Project overview
 
