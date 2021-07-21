@@ -94,17 +94,19 @@ def worldplot_2(data, cc, pc):
 
     fig, ax = plt.subplots(1,1, figsize=(22,12))
     ax.axis('off')
-    fig.suptitle('Chinese Development Finance', fontsize=25)
+    
     
     if pc == "OFa_all_con":
-        world_df.plot(column=pc, ax = ax, legend=True, cmap='jet', legend_kwds={"label":"\n Chinese Development Finance in $10 bln",
+        fig.suptitle('Chinese Development Finance (financial amount)', fontsize=25)
+        world_df.plot(column=pc, ax = ax, legend=True, cmap='jet', legend_kwds={"label":"\n Chinese Development Finance in $10 bln (2000-2014)",
                                                                          "orientation": "horizontal"}, 
                                                               missing_kwds={"color": "lightgrey",
                                                                             "edgecolor": "red",
                                                                             "hatch": "///",
                                                                             "label": "Missing values"});
     else:
-        world_df.plot(column=pc, ax = ax, legend=True, cmap='jet', legend_kwds={"label":"\n Chinese Development Finance project count",###ADDDDJUST!!!!!
+        fig.suptitle('Chinese Development Finance (probability)', fontsize=25)
+        world_df.plot(column=pc, ax = ax, legend=True, cmap='jet', legend_kwds={"label":"\n Probability of receiving Chinese Development Finance (2000-2014)",###ADDDDJUST!!!!!
                                                                          "orientation": "horizontal"}, 
                                                               missing_kwds={"color": "lightgrey",
                                                                             "edgecolor": "red",
