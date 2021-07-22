@@ -7,14 +7,14 @@ This is the final project of the Microeconometrics / OSE Data Science course (su
 This project replicates and comments on the findings of:
 > [Dreher et al. (2021): Aid, China, and Growth: Evidence from a New Global Development Finance Dataset. American Economic Journal: Economic Policy, vol. 13(2), May 2021 (pp. 135-174).](https://www.aeaweb.org/articles?id=10.1257/pol.20180631)
 
-The new role of China as significant donor raises strong opinions, but the debate was based on only little facts since most of the details of it are not officially reported. Dreher et al. (2021) use the Tracking Underreported Financial Flows (TUFF) methodology to introduce a new dataset that provides the needed evidentiary foundation that was needed for solving this issue.
+The new role of China as significant donor of development finance raises strong opinions, but the debate was based on only little facts since most of the details of it are not officially reported. Dreher et al. (2021) use the Tracking Underreported Financial Flows (TUFF) methodology to introduce a new dataset that provides the needed evidentiary foundation that was needed for solving this issue.
 
 In the replication I will focus on the following questions: 
 
 * What determines the allocation of Chinese development finance?
 * Does Chinas development finance lead to economic growth in the recipient countries?
 
-To answer this question on whether and how Chinese development finance affects economic growth, instrumental variables are employed that make use of the year-to-year changes in the supply of Chinese development finance in tandem with cross-sectional variation which is determined by the probability that countries receive such funding. Additional to the replication, independent extensions from the work of Dreher et al. (2021) are added by me.
+To answer this question on whether and how Chinese development finance affects economic growth, instrumental variables are employed that make use of the year-to-year changes in the supply of Chinese development finance in tandem with cross-sectional variation which is determined by the probability that countries receive such funding. Additional to the replication, I add independent extensions. 
 
 
 
