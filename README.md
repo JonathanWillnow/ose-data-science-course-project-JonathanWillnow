@@ -4,17 +4,17 @@ This is the final project of the Microeconometrics / OSE Data Science course (su
 
 ## Project overview
 
-This project replicates and comments on the findings of 
+This project replicates and comments on the findings of:
 > [Dreher et al. (2021): Aid, China, and Growth: Evidence from a New Global Development Finance Dataset. American Economic Journal: Economic Policy, vol. 13(2), May 2021 (pp. 135-174).](https://www.aeaweb.org/articles?id=10.1257/pol.20180631)
 
-The Belt and Road Initiative (BRI), better known as the "new silk road initiative" is just one of many instances of China´s overseas activities of financing development, especially known to the Europeans. Other projects, mostly infrastructure projects (by transaction value), link China within Asia and with the African continent. This role of China as significant donor raises strong opinions, but the debate was based on only little facts since most of the details are not officially reported. The paper at hand uses the Tracking Underreported Financial Flows (TUFF) methodology to introduce a new dataset that provides the needed evidentiary foundations that was needed for this issue.
+The new role of China as significant donor raises strong opinions, but the debate was based on only little facts since most of the details of it are not officially reported. Dreher et al. (2021) use the Tracking Underreported Financial Flows (TUFF) methodology to introduce a new dataset that provides the needed evidentiary foundation that was needed for solving this issue.
 
-I will focus on the following questions: 
+In the replication I will focus on the following questions: 
 
 * What determines the allocation of Chinese development finance?
-* Does Chinas financial development finance lead to economic growth?
+* Does Chinas development finance lead to economic growth in the recipient countries?
 
-To answer this question on whether and how Chinese development finance affects economic growth, instrumental variables are employed that make use of the year-to-year changes in the supply of Chinese development finance (which will be introduced) in tandem with cross-sectional variation which is determined by the probability that countries receive such funding. Additional, independent extensions from the work of Dreher et al. (2021) will be added.
+To answer this question on whether and how Chinese development finance affects economic growth, instrumental variables are employed that make use of the year-to-year changes in the supply of Chinese development finance in tandem with cross-sectional variation which is determined by the probability that countries receive such funding. Additional to the replication, independent extensions from the work of Dreher et al. (2021) are added by me.
 
 
 
