@@ -1,3 +1,4 @@
+"""This module contains all the regressions which are used in the main notebook."""
 import numpy as np
 import pandas as pd
 import pandas.io.formats.style

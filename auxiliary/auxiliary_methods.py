@@ -1,4 +1,4 @@
-
+"""This module contains auxiliary functions for all different kinds of methods which are used in the main notebook."""
 import numpy as np
 import pandas as pd
 import pandas.io.formats.style

@@ -1,4 +1,4 @@
-"""This module contains auxiliary functions the preperation and modification of the data."""
+"""This module contains auxiliary functions for the preparation and modification of the data."""
 
 import numpy as np
 import pandas as pd
